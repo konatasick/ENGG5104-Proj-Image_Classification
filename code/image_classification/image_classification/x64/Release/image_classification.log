@@ -1,0 +1,21 @@
+﻿  ImageRepresentor.cpp
+c:\users\joy\documents\visual studio 2015\projects\image_classification\library\opencv_2_49\build\include\opencv2\flann\logger.h(66): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\stdio.h(205): note: 参见“fopen”的声明
+ImageRepresentor.cpp(120): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
+ImageRepresentor.cpp(121): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
+ImageRepresentor.cpp(154): warning C4305: “初始化”: 从“double”到“float”截断
+  正在生成代码
+  7 of 485 functions ( 1.4%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    2 functions had inline decision re-evaluated but remain unchanged
+  已完成代码的生成
+  image_classification.vcxproj -> C:\Users\JOY\Documents\Visual Studio 2015\Projects\image_classification\x64\Release\image_classification.exe
+  0 File(s) copied
+  0 File(s) copied
+  0 File(s) copied
+  0 File(s) copied
+  0 File(s) copied
+  0 File(s) copied
+  0 File(s) copied
+  0 File(s) copied
+  0 File(s) copied

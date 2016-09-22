@@ -1,0 +1,9 @@
+﻿Build started 4/11/2016 6:20:13 PM.
+     1>Project "D:\Research\Assignment_2016\image_classification\image_classification\image_classification.vcxproj" on node 2 (clean target(s)).
+     1>_PrepareForClean:
+         Deleting file "x64\Debug\image_classification.lastbuildstate".
+     1>Done Building Project "D:\Research\Assignment_2016\image_classification\image_classification\image_classification.vcxproj" (clean target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:00.01

@@ -1,0 +1,393 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<!-- saved from url=(0055)http://www.cse.cuhk.edu.hk/~leojia/projects/color2gray/ -->
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+
+
+<title>Final Project</title>
+
+<style type="text/css">
+
+body {font: 100% Verdana, Arial, sans-serif;}
+
+
+
+a, a:link, a:visited {
+
+  color: #1f82a9;
+
+  background:transparent text-decoration: underline;
+
+  cursor:pointer; background-color:underline
+
+}
+
+.style1 {
+
+	text-align: center;
+
+}
+
+.style2 {
+
+	text-align: left;
+
+}
+
+.style3 {
+
+	font-size: large;
+
+	color: #0000FF;
+
+}
+
+.style5 {
+
+	text-align: left;
+
+	font-size: large;
+
+	color: #0000FF;
+
+}
+
+.style7 {
+
+	text-align: center;
+
+	font-size: large;
+
+}
+
+.style8 {
+
+	text-align: center;
+
+	font-size: large;
+
+	color: #FF0000;
+
+	}
+
+.style9 {
+
+	color: #FF0000;
+
+}
+
+.style10 {
+
+	font-size: large;
+
+}
+
+.style12 {
+
+	font-size: x-large;
+
+	text-align: center;
+
+	background-color: #C0C0C0;
+
+}
+
+.style13 {
+
+	font-size: 16pt;
+
+	color: #0000FF;
+
+}
+
+.auto-style1 {
+
+	margin-top: 0px;
+
+}
+
+</style>
+
+</head>
+
+
+
+<body>
+
+<table align="center" width="80%">
+
+<tbody><tr>
+
+<td><h2>ENGG5104, CSE@CUHK</h2> 
+
+<h2>Final Project: Image Classification</h2>
+
+<h3>Due Date: <span class="style8">15 May</span>, 11:59PM (HTML Report and Codes) </h3>
+
+ 
+
+<p>The goal of the project is to implement an image classification system. The main task is to train image classifiers on the 
+training set, and do testing on new images. We provide the dataset, which contains 5 classes (&quot;laboratory&quot;, &quot;laundromat&quot;,  &quot;library&quot;, &quot;living room&quot;, &quot;lobby&quot;). Part of the data comes from <a href="http://groups.csail.mit.edu/vision/SUN/">SUN Dataset</a>. For each class, it contains 60 images for training and 40 images for your own testing. For each class, 
+the tutor has another 40 images, which you don't have, for fair evaluation. The final grade of your project highly depends on testing results (classification accuracy) on 
+the tutor's testing set, which cannot be seen by you. </p>
+
+<p>The image classification system contains feature extraction, feature encoding (optional), spatial pyramid matching (optional), and classfier training 
+and testing. To get familiar with this pipeline, several reference papers are listed below.</p>
+
+<p>[1] Beyond bags of features: Spatial pyramid matching for recognizing natural scene categories [<a href="http://www-cvr.ai.uiuc.edu/ponce_grp/publication/paper/cvpr06b.pdf">pdf</a>] </p>
+
+<p>[2] Locality-constrained Linear Coding for Image Classification [<a href="https://www.robots.ox.ac.uk/~vgg/rg/papers/wang_etal_CVPR10.pdf">pdf</a>] </p>
+
+<p>[3] The devil is in the details: an evaluation of recent feature encoding methods [<a href="http://www.vlfeat.org/~vedaldi/assets/pubs/chatfield11devil.pdf">pdf</a>] </p>
+
+<p>You need to train your system on the training images and then evaluate its performance on the testing dataset. Turn in your code and HTML report showing the best classification rates you 
+achieved on the provided testing data. After you submit your code, we will test it on our <b>own testing data </b>and obtain your final classification accuracy rate. </p>
+
+<p>Now, download the <a href="image_classification.zip">image_classification.zip</a> (in Visual Studio 2010, C++ project). The pre-requisite of this
+skeleton code is OpenCV 2.4.9. The configuration of OpenCV is the same as assignment 4.</p>
+
+<p>&nbsp;</p>
+
+
+
+<center>
+
+<img src="final_project_files/cuhk.png" width="1000" class="auto-style1" height="300"/>
+
+</center>
+
+
+
+
+
+<h3>System Outline and Implementation Details</h3>
+
+
+
+<ol>
+
+
+
+<li> 
+
+<strong>STEP 1: </strong><b>Feature extraction</b><br/>
+
+  <ul>
+
+    <li>Dense sampling of SIFT descriptors [<a href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.157.3843&amp;rep=rep1&amp;type=pdf">PDF</a>]. 
+    You may use the OpenCV functionality. Another <a href="http://blogs.oregonstate.edu/hess/code/sift/">SIFT Library</a> is available to implememt your 
+    system.</li>
+
+    <li>You are encouraged to combine other features as well (eg.  HoG, LBP, GIST or even color features.). You are free to use any of the 14 descriptors (see <a href="../../resources/feature_extraction.htm">here</a>).</li>
+
+    <li> <a href="http://www.vlfeat.org/">VLfeat</a> is a high-performance library available online and you can also use it in your project. </li>
+
+  </ul>
+
+  </li>
+
+<li><b>STEP 2: Codebook Generation</b><br/>
+
+  You have three choices.
+
+  <ul>
+
+    <li>Run <a href="http://en.wikipedia.org/wiki/K-means_clustering">k-means clustering</a> ("kmeans" function in OpenCV) on a subset/all of the feature descriptors to 
+    learn the codebook. A reasonable codebook size is about 1,024; but feels free to experiment with different sizes. </li>
+
+    <!--<li>Sparse coding based <a href="http://ai.stanford.edu/%7Ehllee/softwares/nips06-sparsecoding.htm">dictionary learning</a>  (code is provided). The dictionary size is about 200-500. 
+    For the details to learn a dictionary form training data based on sparse coding, please read this <a href="http://www.di.ens.fr/%7Emairal/tutorial_iccv09/">tutorial</a>.</li>-->
+
+    <li><a href="https://www.robots.ox.ac.uk/~vgg/rg/papers/wang_etal_CVPR10.pdf">Locality-constrained linear coding (LLC)</a> is a commonly-used method of feature encoding. 
+    The approximated version of LLC is fast to implement. It is also effective to achieve decent clasification accuracy. Its codebook is also generated with k-means algorithm.
+    The [<a href="http://www.ifp.illinois.edu/~jyang29/codes/CVPR10-LLC.rar">MATLAB code</a>] is provided for your reference.</li> 
+
+
+    <li>Fisher vector mapping. In <a href="http://www.vlfeat.org/~vedaldi/assets/pubs/chatfield11devil.pdf">[Zisserman 2010]</a>, fisher vector coding has been tested, which shows very 
+    promising performance. The codebook is generated with Gaussian mixture model (GMM). You may use <a href="http://www.vlfeat.org/">VLfeat</a> in our code. If you do so, please check 
+    the tutorial of <a href="http://www.vlfeat.org/api/fisher.html"> Fisher Vector encoding (FV)</a>.
+    <br />
+
+</li>
+
+    </ul>
+
+  </li>
+
+<li><b>STEP 3: Spatial pyramid matching</b><br/>
+
+  Only local feature description does not have the spatial order of local descriptors, which limits the descriptive power in image 
+  representation. In <a href="http://www-cvr.ai.uiuc.edu/ponce_grp/publication/paper/cvpr06b.pdf">[Lazebnik 2006]</a>, a spatial 
+  pyramid matching method is introduced to address this problem, which achieves signification improvement.<br/>
+
+</li>
+
+<li><b>STEP 4: Image representation</b><br/>
+  For each image, you need to calculate a vector (corresponding histogram in the lecture notes) to represent each image 
+  in the high-dimensional codebook space. This step should be implemented for both training and testing images. You may 
+  have these choices:
+  <ul>
+    <li> <i>Descriptor quantization and histogram computation:</i> (1) For each feature descriptor, you can find the index of 
+    the nearest item (in terms of squared Euclidean distance) in the codebook. We call this process 
+    <a href="http://en.wikipedia.org/wiki/Vector_quantization">vector quantization</a>; (2) After quantization, each 
+    image is represented by a histogram of frequencies for all descriptors. The histograms should be normalized with sum of one; 
+    (3) We use pooling methods to generate fixed-length image representation. The pooling procedure is well established by 
+    biophysical evidence in visual cortex (V1) and was empirically justified by many algorithms applied to image categorization. 
+    Here is a <a href="../../resources/tutorial_pooling.pptx">tutorial</a>. It tells you how 
+    to incorporate pooling into image classification.</li>
+
+     <li><i>Approximated LLC (highly recommended):</i> (1) For each feature descriptor, you can find the K-nearest neighbors (k = 5 is 
+     good but could be tuned) from the codebook's items. Please check this <a href="https://dl.dropboxusercontent.com/u/14073242/Blog/techtidings/cvKnn/cvKnn.cpp">
+     sampel code</a> which illustrates the usage of OpenCV functionality "knn search". Then use <a href="https://en.wikipedia.org/wiki/Linear_least_squares_(mathematics)">
+     linear least squares</a> to minimize the sum of squared differences between the descriptor and its weighted K-nearest neighbors. The
+     weights derived are used as the substitute of the original descriptor. Please check the 
+     <a href="https://www.robots.ox.ac.uk/~vgg/rg/papers/wang_etal_CVPR10.pdf">paper</a> and the <a href="http://www.ifp.illinois.edu/~jyang29/codes/CVPR10-LLC.rar">MATLAB code</a>
+     for reference; (2) Apply pooling methods to generate fixed-length image representation.</li>
+     
+     <li><i>Fisher Vector encoding (highly recommended):</i> (1) For each feature descriptor, you can compute the average first and second 
+     order differences between the descriptor and the centres of a GMM. Then the average differences are used as the substitute of the original 
+     descriptor. Please check the <a href="http://www.vlfeat.org/~vedaldi/assets/pubs/chatfield11devil.pdf">paper</a> and the 
+     <a href="http://www.vlfeat.org/api/fisher.html">tutorial</a> for more details; (2) Apply pooling methods to generate fixed-length image 
+     representation.</li>     
+     <br/>
+  </ul>
+</li>
+
+<li> 
+  <b>STEP 5: Classifier learning </b>
+      <ul><li><i>Linear SVM:</i> To achieve a better chance of winning the contest, you should try the support vector machine (SVM) classifier. The simplest form is linear SVM.</li>
+          <li><i>Kernel SVM:</i> Kernel SVM can be more powerful via selecting proper kernels. But it will involve more computational costs than linear SVM. </li>
+  <br/>
+      (Hint: You can use the OpenCV class (CvSVM), as we have presented it in the skeleton code. Or you may download an SVM package from the Web. <a href="http://www.cs.columbia.edu/~kathy/cs4701/documents/jason_svm_tutorial.pdf">Here</a> is a tutorial of SVM.
+      Using linear or nonlinear SVM depends on your previous codebook construction, code vector computation and pooling. You can also use other high-performance SVM library/software, like <a href="http://www.csie.ntu.edu.tw/~cjlin/libsvm/">libSVM</a>, <a href="http://www.csie.ntu.edu.tw/~cjlin/liblinear/">liblinear</a>, 
+	  and <a href="http://svmlight.joachims.org/">SVM-light</a><i>.</i>)<br/>
+
+  </ul>
+
+</li>
+
+</ol>
+
+
+
+<h3>Data</h3>
+
+The training/testing images are placed in the project folders "Dataset\Train" and "Dataset\Test" respectively. In both
+of the folders, there are 5 folders representing 5 classes: 1 laboratory, 2 laundromat, 3 library, 4 living room, 5 lobby. 
+We have 60/40 image per class for training and testing.
+
+
+<h3>Skeleton Code and "To Do" list</h3>
+
+<ol>
+
+<li><b>TO DO 1:</b> 
+You should implement function <i>ExtractFeature</i> of the class <i>DenseFeatureExtractor</i>. Given an image, you extract feature 
+descriptors (SIFT, color histogram, or others) from some key points. You may use the OpenCV class <i>DenseFeatureDetector</i> to 
+detect the key points of an image. Then you can apply the OpenCV class <i>SiftDescriptorExtractor</i> to compute the SIFT 
+descriptors of the key points (other kind of descriptors can also computed using these key points). In "TO DO 3", you are required to
+incorporate Spatial Pyramid Matching. The key points also record the <em>x</em> and <em>y</em> coordinates. They will be used later 
+in Spatial Pyramid Matching. For feature extraction, we strongly suggest you combine different features, which can improve 
+classification performance. </li>
+
+<li><b>TO DO 2:</b> 
+Complete function <i>GenerateCodebook</i> of the class <i>CodeBookGenerator</i>. The codebook is learned based on descriptors. 
+Choose either k-means or Fisher Vector encoding to generate the codebook. If you choose k-means algorithm, you may use the OpenCV
+function "kmeans". If you choose Fisher Vector encoding, you may incorporate the <a href="http://www.vlfeat.org/">VLfeat</a> and check
+this <a href="http://www.vlfeat.org/api/fisher.html">tutorial</a>.</li>
+
+<li><b>TO DO 3:</b> 
+In the function <i>GetRepresentation</i> of the class <i>ImageRepresentator</i>, you are required to implement the spatial pyramid 
+matching. Please check the <a href="http://www-cvr.ai.uiuc.edu/ponce_grp/publication/paper/cvpr06b.pdf">paper</a> for details.</li>
+
+<li><b>TO DO 4:</b> 
+In the function <i>GetRepresentation</i> of the class <i>ImageRepresentator</i>, you are required to implement the feature encoding. 
+You may have three choices: (1) descriptor quantization; (2) approximated LLC or (3) Fisher Vector encoding.
+</li>
+
+<li><b>TO DO 5:</b> 
+In the function <i>GetRepresentation</i> of the class <i>ImageRepresentator</i>, you are required to implement a pooling method to 
+aggregate the encoded descriptors within each local grid. You should concatenate the aggregated vectors of all local grids as the 
+final image representation.
+</li>
+
+<li><b>TO DO 6:</b> 
+You can choose linear or kernel SVM in this step. In the file "main.cpp", we conduct a linear SVM provided by OpenCV to train 
+and test the images. The learning result of the linear SVM is a normal vector <img src="final_project_files/w.gif"/> and bias term 
+<img src="final_project_files/b.png"/> in function
+<center><img src="final_project_files/image004.gif"/></center>
+The details are in [<a href="http://en.wikipedia.org/wiki/Support_vector_machine">wiki SVM</a>]. You may also use kernel SVM for
+training and testing. But you are reminded to modify the testing part of the file "main.cpp". </li>
+
+
+</ol>
+
+
+<h3>IMPORTANT Suggestion</h3>
+
+<p>If you are confused at the choices given above, follow the combinations 
+
+below.</p>
+
+<ol>
+<li>The simplest way to finish the project with the baseline accuracy is by
+	putting these together: (feature descriptor: SIFT features) + (dictionary
+    computation: k-means) +  (Image representation: descriptor quantization) + 
+    (classifier: linear SVM).</li>
+
+	<li>In coding and debuging, we can adjust (or improve) one component while 
+	fixing all others.</li>
+
+	<li>Any problem? Discuss it with TAs <strong>as early as possible</strong>.  </li> 
+
+</ol>
+
+<h3>Turn-in</h3>
+
+<p>Please submit the code and webpage report via elearning system. Please also submit the classifier
+learned with SVM. Meanwhile, to smooth the marking procedure, you should NOT submit the training/testing 
+images and their representations.</p>
+
+<p>Please pay special attention to two points: <br/>
+1) You should provide all your learned parameters for testing.<br/>
+2) The data set number 1, 2, 3, 4, 5 must  exactly correspond to 
+  &quot;laboratory&quot;, &quot;laundromat&quot;,  &quot;library&quot;, &quot;living room&quot;, 
+and &quot;lobby&quot;. </p>
+
+<h3>Grading</h3>
+
+You should implement a working system following the above pipeline, 
+
+and report the testing results on the given testing set in your report. In our 
+
+grading, report quality and 
+
+classification ratio take 30% and 70% in your final score respectively.
+
+<ol>
+
+<li><b>Web Report (30%)</b>&nbsp; State the pipeline of your system and explain how each component works. If you use some software/library/codes 
+
+from third party, please claim that in detail in your report. Please report the testing results and also analyze 
+
+them. </li>
+
+<li><b>Classification Rate (70%) </b>&nbsp;We will test your system using your code on our own testing dataset. The 
+
+score of your project will also depend on this result. </li> 
+
+</ol></td>
+
+</tr></tbody></table>
+
+
+
+
+
+
+
+
+
+</body></html>
